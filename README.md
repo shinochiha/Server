@@ -31,13 +31,19 @@ This project uses [Express](https://expressjs.com). Fast, unopinionated, minimal
 	git clone https://bitbucket.org/zahironline/zahir-import-from-zahir-client-build.git && mv zahir-import-from-zahir-client-build server/public
 	```
 
-6. Install dependencies for server
+6. Install dependencies for client and build the project
 
 	```
-	cd server && npm install
+	cd client && npm install && npm build
 	```
 
-7. Start server
+7. Install dependencies for server
+
+	```
+	cd ../server && npm install
+	```
+
+8. Start server
 
 	```
 	npm start
