@@ -1,0 +1,22 @@
+{
+  "name": "zahir-import-from-zahir-server",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "Jeffry Luqman",
+    "email": "jeffry.luqman@gmail.com"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "^6.2.0",
+    "express": "~4.16.0",
+    "morgan": "~1.9.0",
+    "node-firebird": "^0.8.6",
+    "request": "^2.88.0"
+  }
+}
