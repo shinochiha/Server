@@ -34,42 +34,61 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "5MP-001",
-	    name: "500 mobile phones",
-	    is_active: true,
-	    is_salable: true,
-	    is_purchasable: true,
-	    is_tracked_as_inventory: false,
-	    cogs_method: "avg",
-	    length: 1,
-	    width: 1,
-	    height: 1,
-	    weight: 1,
-	    unit_cost: 0,
-	    unit_price: 0,
-	    unit_cogs: 0,
-	    quantity: {
-	        on_hand: 0,
-	        on_hold: 0,
-	        available: 0
-	    },
-	    category: {
-	        name: "Products"
-	    },
-			unit: {
-        code: "Pcs",
-        name: "pieces"
-	    },
-	    default_account: {
-	      sales: {
-	          code: "53001",
-	          name: "REVENUE - TRADE"
-	      },
-	      cogs: {
-	          code: "63001",
-	          name: "TRADING - PURCHASE"
-	      }
-			},
+			 code: "string",
+			 name: "string",
+			 description: "string",
+			 location: "string",
+			 category: {
+					 name: "string"
+			 },
+			 depreciation: {
+					 method: "string",
+					 useful_life_in_year: 1,
+					 useful_life_in_period: 1,
+					 is_after_15_start_next_month: true,
+					 acquired_date: "2019-02-28",
+					 acquired_value: 1,
+					 salvage_value: 1,
+					 last_depreciation_value: 1,
+					 last_accumulated_depreciation_value: 1,
+					 last_book_value: 1
+			 },
+			 default_account: {
+					 asset: {
+							 code: "string",
+							 name: "string"
+					 },
+					 accumulated_depreciation: {
+							 code: "string",
+							 name: "string"
+					 },
+					 depreciation: {
+							 code: "string",
+							 name: "string"
+					 },
+					 gain_on_sales: {
+							 code: "string",
+							 name: "string"
+					 },
+					 loss_on_sales: {
+							 code: "string",
+							 name: "string"
+					 }
+			 },
+			 department: {
+					 code: "string",
+					 name: "string"
+			 },
+			 transaction_in: {
+					 date: "2019-02-28",
+					 number: "string",
+					 description: "string"
+			 },
+			 transaction_out: {
+					 date: "2019-02-28",
+					 number: "string",
+					 description: "string"
+			 },
 		},
 
 		// body response
@@ -90,7 +109,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
+			let sql = 'select count(*) AS "count" from ASSET as AT join DEPT as DT on AT.DEPT = DT.NOINDEX join ASSET_CATEGORY as AC on AC.NOINDEX = AT.KELOMPOK'
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -145,7 +164,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/products',
+						url: req.body.destination.url+'/api/v2/fixed_assets',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

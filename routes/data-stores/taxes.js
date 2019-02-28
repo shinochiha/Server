@@ -34,43 +34,25 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "5MP-001",
-	    name: "500 mobile phones",
+	    code: "string",
+	    name: "string",
+	    rate: 1,
 	    is_active: true,
-	    is_salable: true,
-	    is_purchasable: true,
-	    is_tracked_as_inventory: false,
-	    cogs_method: "avg",
-	    length: 1,
-	    width: 1,
-	    height: 1,
-	    weight: 1,
-	    unit_cost: 0,
-	    unit_price: 0,
-	    unit_cogs: 0,
-	    quantity: {
-	        on_hand: 0,
-	        on_hold: 0,
-	        available: 0
+	    sales: {
+	        is_applicable: true,
+	        account: {
+	            code: "string",
+	            name: "string"
+	        }
 	    },
-	    category: {
-	        name: "Products"
+	    purchases: {
+	        is_applicable: true,
+	        account: {
+	            code: "string",
+	            name: "string"
+	        }
 	    },
-			unit: {
-        code: "Pcs",
-        name: "pieces"
-	    },
-	    default_account: {
-	      sales: {
-	          code: "53001",
-	          name: "REVENUE - TRADE"
-	      },
-	      cogs: {
-	          code: "63001",
-	          name: "TRADING - PURCHASE"
-	      }
-			},
-		},
+	},
 
 		// body response
 		response: {}
@@ -90,7 +72,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
+			let sql = 'select count(*) AS "count" from TAX '
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -145,7 +127,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/products',
+						url: req.body.destination.url+'/api/v2/taxes',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

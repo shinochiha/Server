@@ -34,42 +34,44 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "5MP-001",
-	    name: "500 mobile phones",
-	    is_active: true,
-	    is_salable: true,
-	    is_purchasable: true,
-	    is_tracked_as_inventory: false,
-	    cogs_method: "avg",
-	    length: 1,
-	    width: 1,
-	    height: 1,
-	    weight: 1,
-	    unit_cost: 0,
-	    unit_price: 0,
-	    unit_cogs: 0,
-	    quantity: {
-	        on_hand: 0,
-	        on_hold: 0,
-	        available: 0
-	    },
-	    category: {
-	        name: "Products"
-	    },
-			unit: {
-        code: "Pcs",
-        name: "pieces"
-	    },
-	    default_account: {
-	      sales: {
-	          code: "53001",
-	          name: "REVENUE - TRADE"
-	      },
-	      cogs: {
-	          code: "63001",
-	          name: "TRADING - PURCHASE"
-	      }
+			code: "string",
+			name: "string",
+			complete_address: "string",
+			district: "string",
+			city: "string",
+			state: "string",
+			country_code: "string",
+			country_name: "string",
+			postal_code: "string",
+			is_primary: true,
+			is_active: true,
+			department: {
+				code: "string",
+				name: "string"
 			},
+			phones: [
+				{
+						is_primary: true,
+						type: "string",
+						value: "string"
+				}
+			],
+			emails: [
+				{
+						id: "4e0c0a23-7349-4d94-977f-f0e34a977e81",
+						is_primary: true,
+						type: "string",
+						value: "string"
+				}
+			],
+			contact_persons: [
+				{
+						is_primary: true,
+						type: "string",
+						designation: "string",
+						name: "string"
+				}
+			],
 		},
 
 		// body response
@@ -90,7 +92,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
+			let sql = 'select count(*) AS "count" from GUDANG '
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -145,7 +147,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/products',
+						url: req.body.destination.url+'/api/v2/warehouses',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

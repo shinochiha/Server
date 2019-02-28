@@ -127,7 +127,7 @@ router.post('/', function(req, res, next) {
 					res.status(500).send({error: err})
 				} else {
 
-					let reqOptions = { 
+					let reqOptions = {
 						method: 'POST',
 					  url: req.body.destination.url+'/api/v2/accounts',
 					  headers: {

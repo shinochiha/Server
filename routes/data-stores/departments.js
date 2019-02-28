@@ -34,44 +34,71 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "5MP-001",
-	    name: "500 mobile phones",
+	    code: "string",
+	    name: "string",
+	    is_profit_center: true,
+	    is_point_of_sale: true,
 	    is_active: true,
-	    is_salable: true,
-	    is_purchasable: true,
-	    is_tracked_as_inventory: false,
-	    cogs_method: "avg",
-	    length: 1,
-	    width: 1,
-	    height: 1,
-	    weight: 1,
-	    unit_cost: 0,
-	    unit_price: 0,
-	    unit_cogs: 0,
-	    quantity: {
-	        on_hand: 0,
-	        on_hold: 0,
-	        available: 0
+	    parent: {
+        code: "string",
+        name: "string"
 	    },
-	    category: {
-	        name: "Products"
+	    manager: {
+        code: "string",
+        name: "string"
 	    },
-			unit: {
-        code: "Pcs",
-        name: "pieces"
-	    },
-	    default_account: {
-	      sales: {
-	          code: "53001",
-	          name: "REVENUE - TRADE"
-	      },
-	      cogs: {
-	          code: "63001",
-	          name: "TRADING - PURCHASE"
-	      }
+	    warehouses: [
+		      {
+		        is_primary: true,
+		        code: "string",
+		        name: "string",
+		        complete_address: "string",
+		        district: "string",
+		        city: "string",
+		        state: "string",
+		        country_code: "string",
+		        country_name: "string",
+		        postal_code: "string"
+		      }
+	    ],
+	    addresses: [
+	        {
+	          is_primary: true,
+	          type: "string",
+	          complete_address: "string",
+	          district: "string",
+	          city: "string",
+	          state: "string",
+	          country_code: "string",
+	          country_name: "string",
+	          postal_code: "string",
+	          latitude: 1,
+	          longitude: 1
+	        }
+	    ],
+	    phones: [
+	        {
+	          is_primary: true,
+	          type: "string",
+	          value: "string"
+	        }
+	    ],
+	    emails: [
+	        {
+	          is_primary: true,
+	          type: "string",
+	          value: "string"
+	        }
+	    ],
+	    contact_persons: [
+	        {
+	          is_primary: true,
+	          type: "string",
+	          designation: "string",
+	          name: "string"
+	        },
+				]
 			},
-		},
-
 		// body response
 		response: {}
 	})
@@ -90,7 +117,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
+			let sql = 'select count(*) AS "count" from DEPT'
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -145,7 +172,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/products',
+						url: req.body.destination.url+'/api/v2/department',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),
