@@ -1,6 +1,7 @@
 const express = require('express')
 const accounts = require('./data-stores/accounts')
 const contacts = require('./data-stores/contacts')
+const products = require('./data-stores/products')
 
 const router = express.Router()
 
@@ -11,5 +12,6 @@ router.get('/', function(req, res, next) {
 
 router.use('/accounts', accounts)
 router.use('/contacts', contacts)
+router.use('/products', products)
 
 module.exports = router
