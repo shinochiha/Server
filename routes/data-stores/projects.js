@@ -34,23 +34,28 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "string",
+			code: "string",
 	    name: "string",
-	    rate: 1,
+	    description: "string",
 	    is_active: true,
-	    sales: {
-	        is_applicable: true,
-	        account: {
-	            code: "string",
-	            name: "string"
-	        }
+	    start_date: "2019-02-28",
+	    finish_date: "2019-02-28",
+	    estimated_finish_date: "2019-02-28",
+	    progress_in_percentage: 1,
+	    contact_person: "string",
+	    customer: {
+	        id: "51082e96-19fb-44d8-ae91-61725d74d1da",
+	        code: "string",
+	        name: "string"
 	    },
-	    purchases: {
-	        is_applicable: true,
-	        account: {
-	            code: "string",
-	            name: "string"
-	        }
+	    manager: {
+	        id: "6a50abfd-eb5e-4b44-bd98-f08179604a08",
+	        code: "string",
+	        name: "string"
+	    },
+	    status: {
+	        id: "52bc0b82-f328-4f5f-b929-d4e373be7171",
+	        name: "string"
 	    },
 	},
 
@@ -72,7 +77,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from TAX '
+			let sql = 'select count(*) AS "count" from JOB '
 
 			db.query(sql, function(err, result) {
 				if (err) {

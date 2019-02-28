@@ -34,25 +34,48 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "string",
-	    name: "string",
-	    rate: 1,
-	    is_active: true,
-	    sales: {
-	        is_applicable: true,
-	        account: {
-	            code: "string",
-	            name: "string"
-	        }
-	    },
-	    purchases: {
-	        is_applicable: true,
-	        account: {
-	            code: "string",
-	            name: "string"
-	        }
-	    },
-	},
+			code: "string",
+			name: "string",
+			complete_address: "string",
+			district: "string",
+			city: "string",
+			state: "string",
+			country_code: "string",
+			country_name: "string",
+			postal_code: "string",
+			is_primary: true,
+			is_active: true,
+			department: {
+				id: "b3279a0d-2cc4-46bb-a09c-db7533bcf592",
+				code: "string",
+				name: "string"
+			},
+			phones: [
+				{
+						id: "135d32b7-5617-4f5c-ae8d-c419658e530a",
+						is_primary: true,
+						type: "string",
+						value: "string"
+				}
+			],
+			emails: [
+				{
+						id: "4e0c0a23-7349-4d94-977f-f0e34a977e81",
+						is_primary: true,
+						type: "string",
+						value: "string"
+				}
+			],
+			contact_persons: [
+				{
+						id: "56800353-4a92-454a-91d9-eadc06593a12",
+						is_primary: true,
+						type: "string",
+						designation: "string",
+						name: "string"
+				}
+			],
+		},
 
 		// body response
 		response: {}
@@ -72,7 +95,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from TAX '
+			let sql = 'select count(*) AS "count" from GUDANG '
 
 			db.query(sql, function(err, result) {
 				if (err) {
