@@ -34,25 +34,21 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    id: "75a10919-7540-4058-af09-4eea024d2c52",
 	    code: "string",
 	    name: "string",
 	    is_profit_center: true,
 	    is_point_of_sale: true,
 	    is_active: true,
 	    parent: {
-        id: "37784e98-f8b0-44be-9142-d3dc2c592757",
         code: "string",
         name: "string"
 	    },
 	    manager: {
-        id: "7148ab8e-96b7-496c-84d1-bcb0a6a29a87",
         code: "string",
         name: "string"
 	    },
 	    warehouses: [
 		      {
-		        id: "7dcf4a09-fbd6-4657-86f3-3eeaf1ead80e",
 		        is_primary: true,
 		        code: "string",
 		        name: "string",
@@ -67,7 +63,6 @@ router.get('/sample_bodies', function(req, res, next) {
 	    ],
 	    addresses: [
 	        {
-	          id: "4ca6ee62-a507-474e-a048-22c57a4fc999",
 	          is_primary: true,
 	          type: "string",
 	          complete_address: "string",
@@ -83,7 +78,6 @@ router.get('/sample_bodies', function(req, res, next) {
 	    ],
 	    phones: [
 	        {
-	          id: "ee43c7a7-2c26-4ee4-860d-4155ee1a6aaa",
 	          is_primary: true,
 	          type: "string",
 	          value: "string"
@@ -91,7 +85,6 @@ router.get('/sample_bodies', function(req, res, next) {
 	    ],
 	    emails: [
 	        {
-	          id: "6b54b2e3-cdc3-47d2-8097-eeea8348fa00",
 	          is_primary: true,
 	          type: "string",
 	          value: "string"
@@ -99,7 +92,6 @@ router.get('/sample_bodies', function(req, res, next) {
 	    ],
 	    contact_persons: [
 	        {
-	          id: "13844325-adfb-4e73-916b-8c86a719e9fa",
 	          is_primary: true,
 	          type: "string",
 	          designation: "string",
@@ -180,7 +172,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/contacts',
+						url: req.body.destination.url+'/api/v2/department',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

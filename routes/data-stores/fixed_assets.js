@@ -34,27 +34,62 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-			code: "string",
-	    name: "string",
-	    description: "string",
-	    is_active: true,
-	    start_date: "2019-02-28",
-	    finish_date: "2019-02-28",
-	    estimated_finish_date: "2019-02-28",
-	    progress_in_percentage: 1,
-	    contact_person: "string",
-	    customer: {
-	        code: "string",
-	        name: "string"
-	    },
-	    manager: {
-	        code: "string",
-	        name: "string"
-	    },
-	    status: {
-	        name: "string"
-	    },
-	},
+			 code: "string",
+			 name: "string",
+			 description: "string",
+			 location: "string",
+			 category: {
+					 name: "string"
+			 },
+			 depreciation: {
+					 method: "string",
+					 useful_life_in_year: 1,
+					 useful_life_in_period: 1,
+					 is_after_15_start_next_month: true,
+					 acquired_date: "2019-02-28",
+					 acquired_value: 1,
+					 salvage_value: 1,
+					 last_depreciation_value: 1,
+					 last_accumulated_depreciation_value: 1,
+					 last_book_value: 1
+			 },
+			 default_account: {
+					 asset: {
+							 code: "string",
+							 name: "string"
+					 },
+					 accumulated_depreciation: {
+							 code: "string",
+							 name: "string"
+					 },
+					 depreciation: {
+							 code: "string",
+							 name: "string"
+					 },
+					 gain_on_sales: {
+							 code: "string",
+							 name: "string"
+					 },
+					 loss_on_sales: {
+							 code: "string",
+							 name: "string"
+					 }
+			 },
+			 department: {
+					 code: "string",
+					 name: "string"
+			 },
+			 transaction_in: {
+					 date: "2019-02-28",
+					 number: "string",
+					 description: "string"
+			 },
+			 transaction_out: {
+					 date: "2019-02-28",
+					 number: "string",
+					 description: "string"
+			 },
+		},
 
 		// body response
 		response: {}
@@ -74,7 +109,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from JOB '
+			let sql = 'select count(*) AS "count" from ASSET as AT join DEPT as DT on AT.DEPT = DT.NOINDEX join ASSET_CATEGORY as AC on AC.NOINDEX = AT.KELOMPOK'
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -129,7 +164,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/projects',
+						url: req.body.destination.url+'/api/v2/fixed_assets',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

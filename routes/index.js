@@ -6,6 +6,7 @@ const taxes = require('./data-stores/taxes')
 const departments = require('./data-stores/departments')
 const projects = require('./data-stores/projects')
 const warehouses = require('./data-stores/warehouses')
+const fixed_assets = require('./data-stores/fixed_assets')
 
 const router = express.Router()
 
@@ -21,5 +22,6 @@ router.use('/taxes', taxes)
 router.use('/departments', departments)
 router.use('/projects', projects)
 router.use('/warehouses', warehouses)
+router.use('/fixed_assets', fixed_assets)
 
 module.exports = router

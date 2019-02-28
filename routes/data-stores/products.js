@@ -54,22 +54,18 @@ router.get('/sample_bodies', function(req, res, next) {
 	        available: 0
 	    },
 	    category: {
-	        id: "ab37040b-6bde-b240-8410-ed40d090fb9f",
 	        name: "Products"
 	    },
 			unit: {
-        id: "a6a8f999-c170-0c4b-a487-3bf2889df5a1",
         code: "Pcs",
         name: "pieces"
 	    },
 	    default_account: {
 	      sales: {
-	          id: "98068774-8962-4c09-b407-6b22e351c87a",
 	          code: "53001",
 	          name: "REVENUE - TRADE"
 	      },
 	      cogs: {
-	          id: "52dbf359-432e-4d05-b713-10ad48b5ed69",
 	          code: "63001",
 	          name: "TRADING - PURCHASE"
 	      }
@@ -149,7 +145,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/contacts',
+						url: req.body.destination.url+'/api/v2/products',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

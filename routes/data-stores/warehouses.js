@@ -46,13 +46,11 @@ router.get('/sample_bodies', function(req, res, next) {
 			is_primary: true,
 			is_active: true,
 			department: {
-				id: "b3279a0d-2cc4-46bb-a09c-db7533bcf592",
 				code: "string",
 				name: "string"
 			},
 			phones: [
 				{
-						id: "135d32b7-5617-4f5c-ae8d-c419658e530a",
 						is_primary: true,
 						type: "string",
 						value: "string"
@@ -68,7 +66,6 @@ router.get('/sample_bodies', function(req, res, next) {
 			],
 			contact_persons: [
 				{
-						id: "56800353-4a92-454a-91d9-eadc06593a12",
 						is_primary: true,
 						type: "string",
 						designation: "string",
@@ -150,7 +147,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/contacts',
+						url: req.body.destination.url+'/api/v2/warehouses',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),
