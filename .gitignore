@@ -114,3 +114,6 @@ data/
 
 # builded frontend
 public
+
+# package-lock
+package-lock.json
