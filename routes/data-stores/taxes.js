@@ -34,47 +34,25 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "5MP-001",
-	    name: "500 mobile phones",
-	    is_active: true,
-	    is_salable: true,
-	    is_purchasable: true,
-	    is_tracked_as_inventory: false,
-	    cogs_method: "avg",
-	    length: 1,
-	    width: 1,
-	    height: 1,
-	    weight: 1,
-	    unit_cost: 0,
-	    unit_price: 0,
-	    unit_cogs: 0,
-	    quantity: {
-	        on_hand: 0,
-	        on_hold: 0,
-	        available: 0
-	    },
-	    category: {
-	        id: "ab37040b-6bde-b240-8410-ed40d090fb9f",
-	        name: "Products"
-	    },
-			unit: {
-        id: "a6a8f999-c170-0c4b-a487-3bf2889df5a1",
-        code: "Pcs",
-        name: "pieces"
-	    },
-	    default_account: {
-	      sales: {
-	          id: "98068774-8962-4c09-b407-6b22e351c87a",
-	          code: "53001",
-	          name: "REVENUE - TRADE"
-	      },
-	      cogs: {
-	          id: "52dbf359-432e-4d05-b713-10ad48b5ed69",
-	          code: "63001",
-	          name: "TRADING - PURCHASE"
-	      }
-			},
-		},
+    code: "string",
+    name: "string",
+    rate: 1,
+    is_active: true,
+    sales: {
+        is_applicable: true,
+        account: {
+            code: "string",
+            name: "string"
+        }
+    },
+    purchases: {
+        is_applicable: true,
+        account: {
+            code: "string",
+            name: "string"
+        }
+    },
+	},
 
 		// body response
 		response: {}
@@ -94,7 +72,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
+			let sql = 'select count(*) AS "count" from TAX '
 
 			db.query(sql, function(err, result) {
 				if (err) {
