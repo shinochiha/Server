@@ -94,8 +94,8 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = I.UNITDASAR '
-			
+			let sql = 'select count(*) AS "count" from INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
+
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
