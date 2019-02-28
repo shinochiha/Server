@@ -1,5 +1,5 @@
 const express = require('express')
-let request = require('request')
+const request = require('request')
 const config = require('../config')
 const router = express.Router()
 
