@@ -77,7 +77,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from "CARDFILE" as "C" join "KLASCARD" as "K" on "C"."KLASIFIKASI" = "K"."NOINDEX" join "KURSMSTR" as "CURR" on "CURR"."KURS" = "C"."KURS"'
+			let sql = 'select count(*) AS "count" from "CARDFILE" as "C" join "KLASCARD" as "K" on "C"."KLASIFIKASI" = "K"."NOINDEX" join "KURSMSTR" as "KM" on "KM"."KURS" = "C"."KURS"'
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -105,25 +105,28 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"K"."KODE" as "code", '
-				+' 	"K"."NAMA" as "name", '
-				+' 	"K"."ALIASNAMA" as "alias_name", '
-				+' 	"K"."CHECKING" as "is_cash", '
-				+' 	"K"."NOTACTIVE" as "is_active", '
-				+' 	"C"."KURS" as "currency_code", '
-				+' 	"C"."NAMA" as "currency_name", '
-				+' 	"C"."SIMBOL" as "currency_symbol", '
-				+' 	"S"."NOSUBKLASIFIKASI" as "subclass_code", '
-				+' 	"S"."NAMASUBKLASIFIKASI" as "subclass_name", '
-				+' 	"S"."ALIASSUBKLASIFIKASI" as "subclass_alias_name", '
-				+' 	"KL"."NOKLASIFIKASI" as "class_code", '
-				+' 	"KL"."NAMAKLASIFIKASI" as "class_name", '
-				+' 	"KL"."ALIASKLASIFIKASI" as "class_alias_name" '
+				+' 	"C"."KODE" as "code", '
+				+' 	"C"."PERUSAHAAN" as "name", '
+				+' 	"C"."BUSINESS_ID_NUMBER" as "bussiness_id_number", '
+				+' 	"C"."TAX_ID_NUMBER" as "tax_id_number", '
+				+' 	"C"."IS_CUSTOMER" as "is_customer", '
+				+' 	"C"."IS_SUPPLIER" as "is_supplier", '
+				+' 	"C"."IS_EMPLOYEE" as "is_employee", '
+				+' 	"C"."IS_ACTIVE" as "is_active", '
+				+' 	"C"."BATASKREDIT" as "credit_limit", '
+				+' 	"C"."DUEDAYS" as "due_days", '
+				+' 	"C"."LATECHARGE" as "late_charge", '
+				+' 	"C"."DISCOUNT_DAYS" as "discount_days", '
+				+' 	"C"."EARLYDISCOUNT" as "early_discount", '
+				+' 	"C"."KLASIFIKASI" as "class_name", '
+				+' 	"KM"."KURS" as "currency_code", '
+				+' 	"KM"."NAMA" as "currency_name", '
+				+' 	"KM"."SIMBOL" as "currency_symbol", '
 				+'from '
-				+'	"KIRAAN" as "K" '
-				+'	join "KURSMSTR" as "C" on "C"."KURS" = "K"."KURS"'
-				+'	join "SUBKLAS" as "S" on "S"."NOSUBKLASIFIKASI" = "K"."NOSUBKLASIFIKASI"'
-				+'	join "KLAS" as "KL" on "KL"."NOKLASIFIKASI" = "S"."NOKLASIFIKASI"'
+				+'	"CARDFILE" as "C" '
+				+' 	join "KLASCARD" as "K" on "C"."KLASIFIKASI" = "K.NOINDEX" '
+				+'	join "KURSMSTR" as "KM" on "KM"."KURS" = "C"."KURS"'
+
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -140,24 +143,27 @@ router.post('/', function(req, res, next) {
 						body: {
 							code: result[0].code,
 							name: result[0].name,
-							alias_name: result[0].alias_name,
-							is_cash: (result[0].is_cash==='T') ? true : false,
+							bussiness_id_number: result[0].bussiness_id_number,
+							tax_id_number: result[0].tax_id_number,
+							is_customer: (result[0].is_customer==='T') ? true : false,
+							is_supplier: (result[0].is_supplier!=='T') ? true : false,
+							is_employee: (result[0].is_employee!=='T') ? true : false,
 							is_active: (result[0].is_active!=='T') ? true : false,
-							currency: {
+							credit_limit: result[0].credit_limit,
+							term_of_payment: {
+								due_days: result[0].due_days,
+								late_charge: result[0].late_charge,
+								discount_days: result[0].discount_days,
+								early_discount: result[0].early_discount,
+							},
+							classification: {
+								name: result[0].class_name,
+							},
+							default_currency: {
 								code: result[0].currency_code,
 								name: result[0].currency_name,
 								symbol: result[0].currency_symbol,
-							},
-							subclassification: {
-								code: result[0].subclass_code,
-								name: result[0].subclass_name,
-								alias_name: result[0].subclass_alias_name,
-							},
-							classification: {
-								code: result[0].class_code,
-								name: result[0].class_name,
-								alias_name: result[0].class_alias_name,
-							},
+							}
 						},
 						json: true
 					}
