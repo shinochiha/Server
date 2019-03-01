@@ -10,6 +10,8 @@ const warehouses = require('./data-stores/warehouses')
 const fixed_assets = require('./data-stores/fixed_assets')
 const account_beginning_balances = require('./data-stores/account_beginning_balances')
 const receivable_beginning_balances = require('./data-stores/receivable_beginning_balances')
+const payable_beginning_balances = require('./data-stores/payable_beginning_balances')
+const sales_prepayments = require('./data-stores/sales_prepayments')
 
 const router = express.Router()
 
@@ -29,5 +31,7 @@ router.use('/warehouses', warehouses)
 router.use('/fixed_assets', fixed_assets)
 router.use('/account_beginning_balances', account_beginning_balances)
 router.use('/receivable_beginning_balances', receivable_beginning_balances)
+router.use('/payable_beginning_balances', payable_beginning_balances)
+router.use('/sales_prepayments', sales_prepayments)
 
 module.exports = router
