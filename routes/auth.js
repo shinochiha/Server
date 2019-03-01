@@ -20,8 +20,10 @@ router.post('/', function(req, res, next) {
   request(options, function (error, response, body) {
     if (error) {
       res.status(500).send(error)
+    } else if (response.statusCode!==200) {
+      res.status(response.statusCode).send(body)
     } else {
-      res.status(response.statusCode).send(Buffer.from(JSON.stringify(body)).toString('base64'))
+      res.status(response.statusCode).send({token: Buffer.from(JSON.stringify(body)).toString('base64')})
     }
   })
 
