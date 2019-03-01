@@ -34,71 +34,31 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "string",
-	    name: "string",
-	    is_profit_center: true,
-	    is_point_of_sale: true,
-	    is_active: true,
-	    parent: {
-        code: "string",
-        name: "string"
+	    department: {
+	        code: "string",
+	        name: "string"
 	    },
-	    manager: {
-        code: "string",
-        name: "string"
+	    project: {
+	        code: "string",
+	        name: "string"
 	    },
-	    warehouses: [
-		      {
-		        is_primary: true,
-		        code: "string",
-		        name: "string",
-		        complete_address: "string",
-		        district: "string",
-		        city: "string",
-		        state: "string",
-		        country_code: "string",
-		        country_name: "string",
-		        postal_code: "string"
-		      }
-	    ],
-	    addresses: [
-	        {
-	          is_primary: true,
-	          type: "string",
-	          complete_address: "string",
-	          district: "string",
-	          city: "string",
-	          state: "string",
-	          country_code: "string",
-	          country_name: "string",
-	          postal_code: "string",
-	          latitude: 1,
-	          longitude: 1
-	        }
-	    ],
-	    phones: [
-	        {
-	          is_primary: true,
-	          type: "string",
-	          value: "string"
-	        }
-	    ],
-	    emails: [
-	        {
-	          is_primary: true,
-	          type: "string",
-	          value: "string"
-	        }
-	    ],
-	    contact_persons: [
-	        {
-	          is_primary: true,
-	          type: "string",
-	          designation: "string",
-	          name: "string"
-	        },
-				]
-			},
+	    account: {
+	        code: 1,
+	        name: "string",
+	        alias_name: "string"
+	    },
+	    currency: {
+	        code: "string",
+	        name: "string",
+	        symbol: "string"
+	    },
+	    exchange_rate: 1,
+	    debit_origin: 1,
+	    debit: 1,
+	    credit_origin: 1,
+	    credit: 1
+	},
+
 		// body response
 		response: {}
 	})
@@ -117,7 +77,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from DEPT'
+			let sql = 'select count(*) AS "count" from KIRAAN'
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -172,7 +132,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/departments',
+						url: req.body.destination.url+'/api/v2/account_beginning_balances',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

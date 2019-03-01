@@ -34,71 +34,128 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    code: "string",
-	    name: "string",
-	    is_profit_center: true,
-	    is_point_of_sale: true,
-	    is_active: true,
-	    parent: {
-        code: "string",
-        name: "string"
+	  	status: "string",
+	    payment_status: "string",
+	    date: "2019-03-01",
+	    time: "string",
+	    number: "string",
+	    description: "string",
+	    customer: {
+	        ycode: "string",
+	        name: "string",
+	        classification: {
+	            yname: "string"
+	        }
 	    },
-	    manager: {
-        code: "string",
-        name: "string"
+	    orders: [
+	        {
+	            ydate: "2019-03-01",
+	            number: "string",
+	            description: "string"
+	        }
+	    ],
+	    billing_address: {
+	        ycomplete_address: "string",
+	        district: "string",
+	        city: "string",
+	        state: "string",
+	        country: "string",
+	        postal_code: "string"
 	    },
-	    warehouses: [
-		      {
-		        is_primary: true,
-		        code: "string",
-		        name: "string",
-		        complete_address: "string",
-		        district: "string",
-		        city: "string",
-		        state: "string",
-		        country_code: "string",
-		        country_name: "string",
-		        postal_code: "string"
-		      }
-	    ],
-	    addresses: [
+	    shipping_address: {
+	        ycomplete_address: "string",
+	        district: "string",
+	        city: "string",
+	        state: "string",
+	        country: "string",
+	        postal_code: "string"
+	    },
+	    employees: [
 	        {
-	          is_primary: true,
-	          type: "string",
-	          complete_address: "string",
-	          district: "string",
-	          city: "string",
-	          state: "string",
-	          country_code: "string",
-	          country_name: "string",
-	          postal_code: "string",
-	          latitude: 1,
-	          longitude: 1
+	            ytype: {
+	                yname: "string"
+	            },
+	            contact: {
+	                ycode: "string",
+	                name: "string",
+	                classification: {
+	                    yname: "string"
+	                }
+	            }
 	        }
 	    ],
-	    phones: [
+	    term_of_payments: [
 	        {
-	          is_primary: true,
-	          type: "string",
-	          value: "string"
+	            base_date: "2019-03-01",
+	            percentage: 1,
+	            due_date: "2019-03-01",
+	            due_days: 1,
+	            late_charge_rate: 1,
+	            discount_date: "2019-03-01",
+	            discount_days: 1,
+	            early_discount_rate: 1
 	        }
 	    ],
-	    emails: [
+	    department: {
+	        ycode: 1,
+	        name: "string"
+	    },
+	    project: {
+	        ycode: "string",
+	        name: "string"
+	    },
+	    document: {
+	        number: "string",
+	        date: "2019-03-01"
+	    },
+	    tax_form: {
+	        number: "string",
+	        date: "2019-03-01"
+	    },
+	    other_fields: [
 	        {
-	          is_primary: true,
-	          type: "string",
-	          value: "string"
+	            ykey: "string",
+	            type: "string",
+	            value: "string"
 	        }
 	    ],
-	    contact_persons: [
+	    attachments: [
 	        {
-	          is_primary: true,
-	          type: "string",
-	          designation: "string",
-	          name: "string"
+	            yname: "string",
+	            extension: "string",
+	            url: "string"
+	        }
+	    ],
+	    account: {
+	        ycode: 1,
+	        name: "string"
+	    },
+	    currency: {
+	        ycode: "string",
+	        name: "string",
+	        symbol: "string"
+	    },
+	    exchange_rate: 1,
+	    amount_origin: 1,
+	    amount: 1,
+	    balance_origin: 1,
+	    balance: 1,
+	    created: {
+	        user: {
+	            yname: "string",
+	            email: "string"
 	        },
-				]
-			},
+	        time: "2019-03-01T03:05:55+00:00"
+	    },
+	    updated: {
+	        user: {
+	            yname: "string",
+	            email: "string"
+	        },
+	        time: "2019-03-01T03:05:55+00:00"
+	    },
+	},
+
 		// body response
 		response: {}
 	})
@@ -117,7 +174,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from DEPT'
+			let sql = 'select count(*) AS "count" from KIRAAN'
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -172,7 +229,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/departments',
+						url: req.body.destination.url+'/api/v2/receivable_beginning_balances',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),
