@@ -34,61 +34,162 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-			 code: "string",
-			 name: "string",
-			 description: "string",
-			 location: "string",
-			 category: {
-					 name: "string"
-			 },
-			 depreciation: {
-					 method: "string",
-					 useful_life_in_year: 1,
-					 useful_life_in_period: 1,
-					 is_after_15_start_next_month: true,
-					 acquired_date: "2019-02-28",
-					 acquired_value: 1,
-					 salvage_value: 1,
-					 last_depreciation_value: 1,
-					 last_accumulated_depreciation_value: 1,
-					 last_book_value: 1
-			 },
-			 default_account: {
-					 asset: {
-							 code: "string",
-							 name: "string"
-					 },
-					 accumulated_depreciation: {
-							 code: "string",
-							 name: "string"
-					 },
-					 depreciation: {
-							 code: "string",
-							 name: "string"
-					 },
-					 gain_on_sales: {
-							 code: "string",
-							 name: "string"
-					 },
-					 loss_on_sales: {
-							 code: "string",
-							 name: "string"
-					 }
-			 },
-			 department: {
-					 code: "string",
-					 name: "string"
-			 },
-			 transaction_in: {
-					 date: "2019-02-28",
-					 number: "string",
-					 description: "string"
-			 },
-			 transaction_out: {
-					 date: "2019-02-28",
-					 number: "string",
-					 description: "string"
-			 },
+			status: "string",
+			date: "2019-03-01",
+			time: "string",
+			number: "string",
+			description: "string",
+			customer: {
+					code: "string",
+					name: "string",
+					classification: {
+							name: "string"
+					}
+			},
+			orders: [
+					{
+							date: "2019-03-01",
+							number: "string",
+							description: "string"
+					}
+			],
+			parent_memo: {
+					date: "2019-03-01",
+					number: "string",
+					description: "string"
+			},
+			employees: [
+					{
+							type: {
+									name: "string"
+							},
+							contact: {
+									code: "string",
+									name: "string",
+									classification: {
+											name: "string"
+									}
+							}
+					}
+			],
+			department: {
+					code: "string",
+					name: "string"
+			},
+			project: {
+					code: "string",
+					name: "string"
+			},
+			document: {
+					date: "2019-03-01",
+					number: "string"
+			},
+			tax_form: {
+					date: "2019-03-01",
+					number: "string"
+			},
+			other_fields: [
+					{
+							key: "string",
+							type: "string",
+							name: "string"
+					}
+			],
+			amount_type: "string",
+			account: {
+					code: 1,
+					name: "string",
+					alias_name: "string"
+			},
+			currency: {
+					code: "string",
+					name: "string",
+					symbol: "string"
+			},
+			exchange_rate: 1,
+			amount_origin: 1,
+			amount: 1,
+			taxes: [
+					{
+							code: "string",
+							name: "string",
+							rate: 1
+					}
+			],
+			discount: {
+					type: "string",
+					account: {
+							code: "string",
+							name: "string"
+					},
+					rate: 1,
+					currency: {
+							code: "string",
+							name: "string",
+							symbol: "string"
+					},
+					exchange_rate: 1,
+					amount_origin: 1,
+					amount: 1,
+					description: "string"
+			},
+			others: [
+					{
+							account: {
+									code: "string",
+									name: "string"
+							},
+							currency: {
+									code: "string",
+									name: "string",
+									symbol: "string"
+							},
+							exchange_rate: 1,
+							amount_origin: 1,
+							amount: 1,
+							description: "string"
+					}
+			],
+			allocations: [],
+			payments: [
+					{
+							is_cash: true,
+							payment_method: {
+									name: "string"
+							},
+							account: {
+									code: 1,
+									name: "string"
+							},
+							currency: {
+									code: "string",
+									name: "string",
+									symbol: "string"
+							},
+							exchange_rate: 1,
+							amount_origin: 1,
+							amount: 1,
+							description: "string"
+					}
+			],
+			total_amount_origin: 1,
+			total_amount: 1,
+			balance_origin: 1,
+			balance: 1,
+			created: {
+					user: {
+							name: "string",
+							email: "string"
+					},
+					time: "2019-03-01T03:32:01+00:00"
+			},
+			updated: {
+					user: {
+							name: "string",
+							email: "string"
+					},
+					time: "2019-03-01T03:32:01+00:00"
+			},
 		},
 
 		// body response
@@ -109,7 +210,7 @@ router.get('/', function(req, res, next) {
 		} else {
 
 			// count
-			let sql = 'select count(*) AS "count" from ASSET as A join DEPT as D on A.DEPT = D.NOINDEX join ASSET_CATEGORY as C on C.NOINDEX = A.KELOMPOK'
+			let sql = 'select count(*) AS "count" from TAX '
 
 			db.query(sql, function(err, result) {
 				if (err) {
@@ -164,7 +265,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/fixed_assets',
+						url: req.body.destination.url+'/api/v2/sales_prepayments',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),
