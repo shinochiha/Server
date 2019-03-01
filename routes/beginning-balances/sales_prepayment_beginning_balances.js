@@ -53,11 +53,6 @@ router.get('/sample_bodies', function(req, res, next) {
 							description: "string"
 					}
 			],
-			parent_memo: {
-					date: "2019-03-01",
-					number: "string",
-					description: "string"
-			},
 			employees: [
 					{
 							type: {
@@ -116,80 +111,10 @@ router.get('/sample_bodies', function(req, res, next) {
 							rate: 1
 					}
 			],
-			discount: {
-					type: "string",
-					account: {
-							code: "string",
-							name: "string"
-					},
-					rate: 1,
-					currency: {
-							code: "string",
-							name: "string",
-							symbol: "string"
-					},
-					exchange_rate: 1,
-					amount_origin: 1,
-					amount: 1,
-					description: "string"
-			},
-			others: [
-					{
-							account: {
-									code: "string",
-									name: "string"
-							},
-							currency: {
-									code: "string",
-									name: "string",
-									symbol: "string"
-							},
-							exchange_rate: 1,
-							amount_origin: 1,
-							amount: 1,
-							description: "string"
-					}
-			],
-			allocations: [],
-			payments: [
-					{
-							is_cash: true,
-							payment_method: {
-									name: "string"
-							},
-							account: {
-									code: 1,
-									name: "string"
-							},
-							currency: {
-									code: "string",
-									name: "string",
-									symbol: "string"
-							},
-							exchange_rate: 1,
-							amount_origin: 1,
-							amount: 1,
-							description: "string"
-					}
-			],
 			total_amount_origin: 1,
 			total_amount: 1,
 			balance_origin: 1,
 			balance: 1,
-			created: {
-					user: {
-							name: "string",
-							email: "string"
-					},
-					time: "2019-03-01T03:32:01+00:00"
-			},
-			updated: {
-					user: {
-							name: "string",
-							email: "string"
-					},
-					time: "2019-03-01T03:32:01+00:00"
-			},
 		},
 
 		// body response
@@ -265,7 +190,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/sales_prepayments',
+						url: req.body.destination.url+'/api/v2/sales_prepayment_beginning_balances',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

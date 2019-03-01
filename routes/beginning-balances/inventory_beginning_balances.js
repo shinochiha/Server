@@ -34,30 +34,29 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
-	    department: {
-	        code: "string",
-	        name: "string"
-	    },
-	    project: {
-	        code: "string",
-	        name: "string"
-	    },
-	    account: {
-	        code: 1,
-	        name: "string",
-	        alias_name: "string"
-	    },
-	    currency: {
-	        code: "string",
-	        name: "string",
-	        symbol: "string"
-	    },
-	    exchange_rate: 1,
-	    debit_origin: 1,
-	    debit: 1,
-	    credit_origin: 1,
-	    credit: 1
-	},
+			 department: {
+					 code: "string",
+					 name: "string"
+			 },
+			 project: {
+					 code: "string",
+					 name: "string"
+			 },
+			 warehouse: {
+					 code: "string",
+					 name: "string"
+			 },
+			 product: {
+					 code: "string",
+					 name: "string"
+			 },
+			 unit: {
+					 code: "string",
+					 name: "string"
+			 },
+			 quantity: 1,
+			 unit_cost: 1,
+		},
 
 		// body response
 		response: {}
@@ -132,7 +131,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/account_beginning_balances',
+						url: req.body.destination.url+'/api/v2/inventory_beginning_balances',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),

@@ -34,49 +34,54 @@ router.get('/sample_bodies', function(req, res, next) {
 			slug: 'demo.zahironline.com',
 		},
 		data: {
+			id: "5f7d4c44-67fc-41fd-b35e-8492d4f0ad43",
 			status: "string",
 			date: "2019-03-01",
 			time: "string",
 			number: "string",
 			description: "string",
-			customer: {
+			supplier: {
+					id: "df7fd309-1965-47d4-a40b-9762cb0bcdc8",
 					code: "string",
 					name: "string",
 					classification: {
+							id: "1e57375b-f5ba-41c8-8497-45555d999ae8",
 							name: "string"
 					}
 			},
 			orders: [
 					{
+							id: "9ca153f6-603d-44f8-9bc6-2b563a8dff93",
 							date: "2019-03-01",
 							number: "string",
 							description: "string"
 					}
 			],
-			parent_memo: {
-					date: "2019-03-01",
-					number: "string",
-					description: "string"
-			},
 			employees: [
 					{
+							id: "ccbc3344-6612-4058-8609-9a549c38226b",
 							type: {
+									id: "string",
 									name: "string"
 							},
 							contact: {
+									id: "efa616a9-6a8e-4898-af5d-8b7b30c51c5a",
 									code: "string",
 									name: "string",
 									classification: {
+											id: "87bf5a8c-7448-470d-915b-8bee233c8edc",
 											name: "string"
 									}
 							}
 					}
 			],
 			department: {
+					id: "30d18369-9f8d-416f-9656-5419c436e517",
 					code: "string",
 					name: "string"
 			},
 			project: {
+					id: "ab193bd3-c3de-4083-9b66-d8869e22d303",
 					code: "string",
 					name: "string"
 			},
@@ -90,6 +95,7 @@ router.get('/sample_bodies', function(req, res, next) {
 			},
 			other_fields: [
 					{
+							id: "13ee0b9b-a43f-4829-838a-64c7c4a6752d",
 							key: "string",
 							type: "string",
 							name: "string"
@@ -97,11 +103,13 @@ router.get('/sample_bodies', function(req, res, next) {
 			],
 			amount_type: "string",
 			account: {
+					id: "aaae66d9-620c-4eee-9e19-3a8f5bfde126",
 					code: 1,
 					name: "string",
 					alias_name: "string"
 			},
 			currency: {
+					id: "4c93c96a-faba-4061-964b-5d85c7e19b29",
 					code: "string",
 					name: "string",
 					symbol: "string"
@@ -111,85 +119,16 @@ router.get('/sample_bodies', function(req, res, next) {
 			amount: 1,
 			taxes: [
 					{
+							id: "ca71e92c-7646-447e-aace-e07f79aba231",
 							code: "string",
 							name: "string",
 							rate: 1
-					}
-			],
-			discount: {
-					type: "string",
-					account: {
-							code: "string",
-							name: "string"
-					},
-					rate: 1,
-					currency: {
-							code: "string",
-							name: "string",
-							symbol: "string"
-					},
-					exchange_rate: 1,
-					amount_origin: 1,
-					amount: 1,
-					description: "string"
-			},
-			others: [
-					{
-							account: {
-									code: "string",
-									name: "string"
-							},
-							currency: {
-									code: "string",
-									name: "string",
-									symbol: "string"
-							},
-							exchange_rate: 1,
-							amount_origin: 1,
-							amount: 1,
-							description: "string"
-					}
-			],
-			allocations: [],
-			payments: [
-					{
-							is_cash: true,
-							payment_method: {
-									name: "string"
-							},
-							account: {
-									code: 1,
-									name: "string"
-							},
-							currency: {
-									code: "string",
-									name: "string",
-									symbol: "string"
-							},
-							exchange_rate: 1,
-							amount_origin: 1,
-							amount: 1,
-							description: "string"
 					}
 			],
 			total_amount_origin: 1,
 			total_amount: 1,
 			balance_origin: 1,
 			balance: 1,
-			created: {
-					user: {
-							name: "string",
-							email: "string"
-					},
-					time: "2019-03-01T03:32:01+00:00"
-			},
-			updated: {
-					user: {
-							name: "string",
-							email: "string"
-					},
-					time: "2019-03-01T03:32:01+00:00"
-			},
 		},
 
 		// body response
@@ -265,7 +204,7 @@ router.post('/', function(req, res, next) {
 
 					let reqOptions = {
 						method: 'POST',
-						url: req.body.destination.url+'/api/v2/sales_prepayments',
+						url: req.body.destination.url+'/api/v2/purchases_prepayment_beginning_balances',
 						headers: {
 							slug: req.body.destination.slug,
 							Authorization: 'Bearer '+Buffer.from(req.body.token, 'base64').toString(),
