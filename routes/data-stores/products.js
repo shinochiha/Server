@@ -136,19 +136,16 @@ router.post('/', function(req, res, next) {
 				+' 	"I"."QTYONHAND" as "on_hand" '
 				+' 	"I"."QTY_ON_HOLD" as "on_hold" '
 				+' 	"I"."QTY_AVAILABLE" as "available" '
-				+' 	"K"."DESKRIPSI" as "category_name" '
-				+' 	"U"."KODEUNIT" as "unit_code" '
-				+' 	"U"."NAMAUNIT" as "unit_name" '
-				+' 	"R"."CODE" as "default_account_sales_code" '
-				+' 	"R"."NAMA" as "default_account_sales_name" '
-				+' 	"N"."CODE" as "default_account_cogs_code" '
-				+' 	"N"."NAMA" as "default_account_cogs_name" '
+				+' 	"KV"."DESKRIPSI" as "category_name" '
+				+' 	"UT"."KODEUNIT" as "unit_code" '
+				+' 	"UT"."NAMAUNIT" as "unit_name" '
 				+'from '
 				+'	"INVENTOR" as "I" '
-				+'	join "KELINV" as "K"'
-				+'	join "UNIT" as "U"'
-				+'	join "KIRAAN" as "R"'
-				+'	join "KIRAAN" as "N"'
+				+'	join "KELINV" as "KV" on I.SUPPLIERALTERNATIF = KV.NOINDEX'
+				+'	join "UNIT" as "UT" on I.IDUNITDASAR = UT.NOINDEX'
+				+'	left join "KIRAAN"'
+
+				'INVENTOR as I join KELINV as KV on I.SUPPLIERALTERNATIF = KV.NOINDEX join UNIT as UT on I.IDUNITDASAR = UT.NOINDEX'
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
