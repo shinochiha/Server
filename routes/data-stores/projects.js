@@ -103,25 +103,17 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"K"."KODE" as "code", '
-				+' 	"K"."NAMA" as "name", '
-				+' 	"K"."ALIASNAMA" as "alias_name", '
-				+' 	"K"."CHECKING" as "is_cash", '
-				+' 	"K"."NOTACTIVE" as "is_active", '
-				+' 	"C"."KURS" as "currency_code", '
-				+' 	"C"."NAMA" as "currency_name", '
-				+' 	"C"."SIMBOL" as "currency_symbol", '
-				+' 	"S"."NOSUBKLASIFIKASI" as "subclass_code", '
-				+' 	"S"."NAMASUBKLASIFIKASI" as "subclass_name", '
-				+' 	"S"."ALIASSUBKLASIFIKASI" as "subclass_alias_name", '
-				+' 	"KL"."NOKLASIFIKASI" as "class_code", '
-				+' 	"KL"."NAMAKLASIFIKASI" as "class_name", '
-				+' 	"KL"."ALIASKLASIFIKASI" as "class_alias_name" '
+				+' 	"J"."ID" as "code", '
+				+' 	"J"."NAMEPEKERJAAN" as "name", '
+				+' 	"J"."KETERANGAN" as "description", '
+				+' 	"J"."IS_ACTIVE" as "is_active", '
+				+' 	"J"."TANGGALMULAI" as "start_date", '
+				+' 	"J"."TANGGALSELESAI" as "finish_date", '
+				+' 	"J"."TANGGALRENCANASELESAI" as "estimated_finish_date", '
+				+' 	"J"."PERSENSELESAI" as "progress_in_percentage", '
+				+' 	"J"."KONTAK" as "contact_person", '
 				+'from '
-				+'	"KIRAAN" as "K" '
-				+'	join "KURSMSTR" as "C" on "C"."KURS" = "K"."KURS"'
-				+'	join "SUBKLAS" as "S" on "S"."NOSUBKLASIFIKASI" = "K"."NOSUBKLASIFIKASI"'
-				+'	join "KLAS" as "KL" on "KL"."NOKLASIFIKASI" = "S"."NOKLASIFIKASI"'
+				+'	"JOB" as "J" '
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -138,25 +130,14 @@ router.post('/', function(req, res, next) {
 						body: {
 							code: result[0].code,
 							name: result[0].name,
-							alias_name: result[0].alias_name,
-							is_cash: (result[0].is_cash==='T') ? true : false,
+							description: result[0].description,
 							is_active: (result[0].is_active!=='T') ? true : false,
-							currency: {
-								code: result[0].currency_code,
-								name: result[0].currency_name,
-								symbol: result[0].currency_symbol,
+							start_date: result[0].start_date,
+							finish_date: result[0].finish_date,
+							estimated_finish_date: result[0].estimated_finish_date,
+							progress_in_percentage: result[0].progress_in_percentage,
+							contact_person: result[0].contact_person,
 							},
-							subclassification: {
-								code: result[0].subclass_code,
-								name: result[0].subclass_name,
-								alias_name: result[0].subclass_alias_name,
-							},
-							classification: {
-								code: result[0].class_code,
-								name: result[0].class_name,
-								alias_name: result[0].class_alias_name,
-							},
-						},
 						json: true
 					}
 					db.detach()

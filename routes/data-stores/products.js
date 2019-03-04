@@ -119,25 +119,36 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"K"."KODE" as "code", '
-				+' 	"K"."NAMA" as "name", '
-				+' 	"K"."ALIASNAMA" as "alias_name", '
-				+' 	"K"."CHECKING" as "is_cash", '
-				+' 	"K"."NOTACTIVE" as "is_active", '
-				+' 	"C"."KURS" as "currency_code", '
-				+' 	"C"."NAMA" as "currency_name", '
-				+' 	"C"."SIMBOL" as "currency_symbol", '
-				+' 	"S"."NOSUBKLASIFIKASI" as "subclass_code", '
-				+' 	"S"."NAMASUBKLASIFIKASI" as "subclass_name", '
-				+' 	"S"."ALIASSUBKLASIFIKASI" as "subclass_alias_name", '
-				+' 	"KL"."NOKLASIFIKASI" as "class_code", '
-				+' 	"KL"."NAMAKLASIFIKASI" as "class_name", '
-				+' 	"KL"."ALIASKLASIFIKASI" as "class_alias_name" '
+				+' 	"I"."KODE" as "code", '
+				+' 	"I"."DESKRIPSI" as "name", '
+				+' 	"I"."IS_ACTIVE" as "is_active", '
+				+' 	"I"."IS_SALABLE" as "is_salable", '
+				+' 	"I"."IS_PURCHASABLE" as "is_purchasable", '
+				+' 	"I"."IS_TRACKED_AS_INVENTORY" as "is_tracked_as_inventory", '
+				+' 	"I"."COGS_METHOD" as "cogs_method", '
+				+' 	"I"."PANJANG" as "length", '
+				+' 	"I"."LEBAR" as "width", '
+				+' 	"I"."TINGGI" as "height", '
+				+' 	"I"."BERAT" as "weight", '
+				+' 	"I"."HARGASATUAN" as "unit_cost", '
+				+' 	"I"."HARGAJUALSATUAN" as "unit_price", '
+				+' 	"I"."HARGAPOKOKSATUAN" as "unit_cogs" '
+				+' 	"I"."QTYONHAND" as "on_hand" '
+				+' 	"I"."QTY_ON_HOLD" as "on_hold" '
+				+' 	"I"."QTY_AVAILABLE" as "available" '
+				+' 	"K"."DESKRIPSI" as "category_name" '
+				+' 	"U"."KODEUNIT" as "unit_code" '
+				+' 	"U"."NAMAUNIT" as "unit_name" '
+				+' 	"R"."CODE" as "default_account_sales_code" '
+				+' 	"R"."NAMA" as "default_account_sales_name" '
+				+' 	"N"."CODE" as "default_account_cogs_code" '
+				+' 	"N"."NAMA" as "default_account_cogs_name" '
 				+'from '
-				+'	"KIRAAN" as "K" '
-				+'	join "KURSMSTR" as "C" on "C"."KURS" = "K"."KURS"'
-				+'	join "SUBKLAS" as "S" on "S"."NOSUBKLASIFIKASI" = "K"."NOSUBKLASIFIKASI"'
-				+'	join "KLAS" as "KL" on "KL"."NOKLASIFIKASI" = "S"."NOKLASIFIKASI"'
+				+'	"INVENTOR" as "I" '
+				+'	join "KELINV" as "K"'
+				+'	join "UNIT" as "U"'
+				+'	join "KIRAAN" as "R"'
+				+'	join "KIRAAN" as "N"'
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -154,24 +165,40 @@ router.post('/', function(req, res, next) {
 						body: {
 							code: result[0].code,
 							name: result[0].name,
-							alias_name: result[0].alias_name,
-							is_cash: (result[0].is_cash==='T') ? true : false,
 							is_active: (result[0].is_active!=='T') ? true : false,
-							currency: {
-								code: result[0].currency_code,
-								name: result[0].currency_name,
-								symbol: result[0].currency_symbol,
+							is_salable: (result[0].is_salable==='T') ? true : false,
+							is_purchasable: (result[0].is_purchasable==='T') ? true : false,
+							is_tracked_as_inventory: (result[0].is_tracked_as_inventory==='T') ? true : false,
+							cogs_method: result[0].cogs_method,
+							length: result[0].length,
+							width: result[0].width,
+							height: result[0].height,
+							weight: result[0].weight,
+							unit_cost: result[0].unit_cost,
+							unit_price: result[0].unit_price,
+							unit_cogs: result[0].unit_cogs,
+							quantity: {
+								on_hand: result[0].on_hand,
+								on_hold: result[0].on_hold,
+								available: result[0].available,
 							},
-							subclassification: {
-								code: result[0].subclass_code,
-								name: result[0].subclass_name,
-								alias_name: result[0].subclass_alias_name,
+							category: {
+								name: result[0].category_name,
 							},
-							classification: {
-								code: result[0].class_code,
-								name: result[0].class_name,
-								alias_name: result[0].class_alias_name,
+							unit: {
+								code: result[0].unit_code,
+								name: result[0].unit_name,
 							},
+							default_account: {
+								sales: {
+									code: result[0].default_account_sales_code,
+									name: result[0].default_account_sales_name,
+								},
+								cogs: {
+									code: result[0].default_account_cogs_code,
+									name: result[0].default_account_cogs_name,
+								}
+							}
 						},
 						json: true
 					}
