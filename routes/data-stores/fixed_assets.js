@@ -138,25 +138,37 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"K"."KODE" as "code", '
-				+' 	"K"."NAMA" as "name", '
-				+' 	"K"."ALIASNAMA" as "alias_name", '
-				+' 	"K"."CHECKING" as "is_cash", '
-				+' 	"K"."NOTACTIVE" as "is_active", '
-				+' 	"C"."KURS" as "currency_code", '
-				+' 	"C"."NAMA" as "currency_name", '
-				+' 	"C"."SIMBOL" as "currency_symbol", '
-				+' 	"S"."NOSUBKLASIFIKASI" as "subclass_code", '
-				+' 	"S"."NAMASUBKLASIFIKASI" as "subclass_name", '
-				+' 	"S"."ALIASSUBKLASIFIKASI" as "subclass_alias_name", '
-				+' 	"KL"."NOKLASIFIKASI" as "class_code", '
-				+' 	"KL"."NAMAKLASIFIKASI" as "class_name", '
-				+' 	"KL"."ALIASKLASIFIKASI" as "class_alias_name" '
+				+' 	"A"."KODE" as "code", '
+				+' 	"A"."NAMA" as "name", '
+				+' 	"A"."KETERANGAN" as "description", '
+				+' 	"A"."LOKASI" as "location", '
+				+' 	"S"."NAMA" as "category_name", '
+				+' 	"A"."METHOD" as "method", '
+				+' 	"A"."UMUR_EKONOMIS" as "useful_life_in_year", '
+				+' 	"A"."USEFUL_LIFE_IN_PERIOD" as "useful_life_in_period", '
+				+' 	"A"."IS_AFTER15_START_NEXT" as "is_after_15_start_next_month", '
+				+' 	"A"."TANGGAL_PEROLEHAN" as "acquired_date", '
+				+' 	"A"."NILAI_PEROLEHAN" as "acquired_value", '
+				+' 	"A"."NILAI_RESIDU" as "salvage_value", '
+				+' 	"A"."BEBAN_PERBULAN" as "last_depreciation_value", '
+				+' 	"A"."AKUMULASI_BEBAN" as "last_accumulated_depreciation_value", '
+				+' 	"A"."NILAI_BUKU" as "last_book_value", '
+				+' 	"A"."KODE" as "asset_code", '
+				+' 	"A"."NAMA" as "asset_name", '
+				+' 	"K"."KODE" as "accumulated_depreciation_code", '
+				+' 	"K"."NAMA" as "accumulated_depreciation_name", '
+				+' 	"K"."KODE" as "depreciation_code", '
+				+' 	"K"."NAMA" as "depreciation_name", '
+				+' 	"K"."KODE" as "gain_on_sales_code", '
+				+' 	"K"."NAMA" as "gain_on_sales_name", '
+				+' 	"K"."KODE" as "loss_on_sales_code", '
+				+' 	"K"."NAMA" as "loss_on_sales_name", '
+				+' 	"D"."DEPTID" as "department_code", '
+				+' 	"D"."NAMA" as "department_name", '
 				+'from '
-				+'	"KIRAAN" as "K" '
-				+'	join "KURSMSTR" as "C" on "C"."KURS" = "K"."KURS"'
-				+'	join "SUBKLAS" as "S" on "S"."NOSUBKLASIFIKASI" = "K"."NOSUBKLASIFIKASI"'
-				+'	join "KLAS" as "KL" on "KL"."NOKLASIFIKASI" = "S"."NOKLASIFIKASI"'
+				+'	"ASSET" as "A" '
+				+'	join "DEPT" as "D" '
+				+'	join "ASSET_CATEGORY" as "S" '
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -173,24 +185,49 @@ router.post('/', function(req, res, next) {
 						body: {
 							code: result[0].code,
 							name: result[0].name,
-							alias_name: result[0].alias_name,
-							is_cash: (result[0].is_cash==='T') ? true : false,
-							is_active: (result[0].is_active!=='T') ? true : false,
-							currency: {
-								code: result[0].currency_code,
-								name: result[0].currency_name,
-								symbol: result[0].currency_symbol,
+							description: result[0].description,
+							location: result[0].location,
+							category: {
+								name: result[0].category_name,
 							},
-							subclassification: {
-								code: result[0].subclass_code,
-								name: result[0].subclass_name,
-								alias_name: result[0].subclass_alias_name,
+							depreciation: {
+								method: result[0].method,
+								useful_life_in_year: result[0].useful_life_in_year,
+								useful_life_in_period: result[0].useful_life_in_period,
+								is_after_15_start_next_month: result[0].is_after_15_start_next_month,
+								acquired_date: result[0].acquired_date,
+								acquired_value: result[0].acquired_value,
+								salvage_value: result[0].salvage_value,
+								last_depreciation_value: result[0].last_depreciation_value,
+								last_accumulated_depreciation_value: result[0].last_accumulated_depreciation_value,
+								last_book_value: result[0].last_book_value,
 							},
-							classification: {
-								code: result[0].class_code,
-								name: result[0].class_name,
-								alias_name: result[0].class_alias_name,
-							},
+							// default_account: {
+							// 	asset: {
+							// 		code: result[0].asset_code,
+							// 		name: result[0].asset_name
+							// 	},
+							// 	accumulated_depreciation: {
+							// 		code: result[0].,
+							// 		name: result[0].
+							// 	},
+							// 	depreciation: {
+							// 		code: result[0].,
+							// 		name: result[0].
+							// 	},
+							// 	gain_on_sales: {
+							// 		code: result[0].,
+							// 		name: result[0].
+							// 	},
+							// 	loss_on_sales: {
+							// 		code: result[0].,
+							// 		name: result[0].
+							// 	}
+							// },
+							// department: {
+							// 	code: result[0].,
+							// 	name: result[0].
+							// }
 						},
 						json: true
 					}

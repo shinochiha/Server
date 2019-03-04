@@ -103,17 +103,16 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"J"."ID" as "code", '
-				+' 	"J"."NAMEPEKERJAAN" as "name", '
-				+' 	"J"."KETERANGAN" as "description", '
-				+' 	"J"."IS_ACTIVE" as "is_active", '
-				+' 	"J"."TANGGALMULAI" as "start_date", '
-				+' 	"J"."TANGGALSELESAI" as "finish_date", '
-				+' 	"J"."TANGGALRENCANASELESAI" as "estimated_finish_date", '
-				+' 	"J"."PERSENSELESAI" as "progress_in_percentage", '
-				+' 	"J"."KONTAK" as "contact_person", '
-				+'from '
-				+'	"JOB" as "J" '
+				+' "ID" as "code", '
+				+' "NAMEPEKERJAAN" as "name", '
+				+' "KETERANGAN" as "description", '
+				+' "IS_ACTIVE" as "is_active", '
+				+' "TANGGALMULAI" as "start_date", '
+				+' "TANGGALSELESAI" as "finish_date", '
+				+' "TANGGALRENCANASELESAI" as "estimated_finish_date", '
+				+' "PERSENSELESAI" as "progress_in_percentage", '
+				+' "KONTAK" as "contact_person", '
+				+'from "JOB" '
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})

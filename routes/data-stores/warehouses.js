@@ -121,25 +121,18 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"K"."KODE" as "code", '
-				+' 	"K"."NAMA" as "name", '
-				+' 	"K"."ALIASNAMA" as "alias_name", '
-				+' 	"K"."CHECKING" as "is_cash", '
-				+' 	"K"."NOTACTIVE" as "is_active", '
-				+' 	"C"."KURS" as "currency_code", '
-				+' 	"C"."NAMA" as "currency_name", '
-				+' 	"C"."SIMBOL" as "currency_symbol", '
-				+' 	"S"."NOSUBKLASIFIKASI" as "subclass_code", '
-				+' 	"S"."NAMASUBKLASIFIKASI" as "subclass_name", '
-				+' 	"S"."ALIASSUBKLASIFIKASI" as "subclass_alias_name", '
-				+' 	"KL"."NOKLASIFIKASI" as "class_code", '
-				+' 	"KL"."NAMAKLASIFIKASI" as "class_name", '
-				+' 	"KL"."ALIASKLASIFIKASI" as "class_alias_name" '
-				+'from '
-				+'	"KIRAAN" as "K" '
-				+'	join "KURSMSTR" as "C" on "C"."KURS" = "K"."KURS"'
-				+'	join "SUBKLAS" as "S" on "S"."NOSUBKLASIFIKASI" = "K"."NOSUBKLASIFIKASI"'
-				+'	join "KLAS" as "KL" on "KL"."NOKLASIFIKASI" = "S"."NOKLASIFIKASI"'
+				+' "KODEGUDANG" as "code", '
+				+' "NAMA_GUDANG" as "name", '
+				+' "ALAMAT_1" as "complete_address", '
+				+' "ALAMAT_2" as "district", '
+				+' "KOTA" as "city", '
+				+' "STATE" as "state", '
+				+' "COUNTRY_CODE" as "country_code", '
+				+' "COUNTRY_NAME" as "country_name", '
+				+' "KODEPOS" as "postal_code", '
+				+' "IS_PRIMARY" as "is_primary", '
+				+' "IS_ACTIVE" as "is_active", '
+				+'from "GUDANG"'
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -156,24 +149,15 @@ router.post('/', function(req, res, next) {
 						body: {
 							code: result[0].code,
 							name: result[0].name,
-							alias_name: result[0].alias_name,
-							is_cash: (result[0].is_cash==='T') ? true : false,
+							complete_address: result[0].complete_address,
+							district: result[0].district,
+							city: result[0].city,
+							state: result[0].state,
+							country_code: result[0].country_code,
+							country_name: result[0].country_name,
+							postal_code: result[0].postal_code,
+							is_primary: (result[0].is_primary==='T') ? true : false,
 							is_active: (result[0].is_active!=='T') ? true : false,
-							currency: {
-								code: result[0].currency_code,
-								name: result[0].currency_name,
-								symbol: result[0].currency_symbol,
-							},
-							subclassification: {
-								code: result[0].subclass_code,
-								name: result[0].subclass_name,
-								alias_name: result[0].subclass_alias_name,
-							},
-							classification: {
-								code: result[0].class_code,
-								name: result[0].class_name,
-								alias_name: result[0].class_alias_name,
-							},
 						},
 						json: true
 					}
