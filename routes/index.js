@@ -14,6 +14,8 @@ const payable_beginning_balances = require('./beginning-balances/payable_beginni
 const sales_prepayment_beginning_balances = require('./beginning-balances/sales_prepayment_beginning_balances')
 const purchases_prepayment_beginning_balances = require('./beginning-balances/purchases_prepayment_beginning_balances')
 const inventory_beginning_balances = require('./beginning-balances/inventory_beginning_balances')
+const destination_companies = require('./companies/destination_companies')
+const upload = require('./upload')
 
 const router = express.Router()
 
@@ -37,5 +39,7 @@ router.use('/payable_beginning_balances', payable_beginning_balances)
 router.use('/sales_prepayment_beginning_balances', sales_prepayment_beginning_balances)
 router.use('/purchases_prepayment_beginning_balances', purchases_prepayment_beginning_balances)
 router.use('/inventory_beginning_balances', inventory_beginning_balances)
+router.use('/destination_companies', destination_companies)
+router.use('/upload', upload)
 
 module.exports = router

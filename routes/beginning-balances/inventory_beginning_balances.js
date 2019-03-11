@@ -105,25 +105,16 @@ router.post('/', function(req, res, next) {
 			// get one
 			let skip = req.body.skip || 0
 			let sql = 'select first 1 skip '+skip
-				+' 	"K"."KODE" as "code", '
-				+' 	"K"."NAMA" as "name", '
-				+' 	"K"."ALIASNAMA" as "alias_name", '
-				+' 	"K"."CHECKING" as "is_cash", '
-				+' 	"K"."NOTACTIVE" as "is_active", '
-				+' 	"C"."KURS" as "currency_code", '
-				+' 	"C"."NAMA" as "currency_name", '
-				+' 	"C"."SIMBOL" as "currency_symbol", '
-				+' 	"S"."NOSUBKLASIFIKASI" as "subclass_code", '
-				+' 	"S"."NAMASUBKLASIFIKASI" as "subclass_name", '
-				+' 	"S"."ALIASSUBKLASIFIKASI" as "subclass_alias_name", '
-				+' 	"KL"."NOKLASIFIKASI" as "class_code", '
-				+' 	"KL"."NAMAKLASIFIKASI" as "class_name", '
-				+' 	"KL"."ALIASKLASIFIKASI" as "class_alias_name" '
+				+' 	"D"."DEPTID" as "code", '
+				+' 	"D"."NAMA" as "name", '
+				+' 	"J"."ID" as "project_code", '
+				+' 	"J"."NAMAPEKERJAAN" as "project_name", '
+				+' 	"I"."JUMLAHF1" as "quantity", '
+				+' 	"I"."HARGASATUAN" as "unit_cost", '
 				+'from '
-				+'	"KIRAAN" as "K" '
-				+'	join "KURSMSTR" as "C" on "C"."KURS" = "K"."KURS"'
-				+'	join "SUBKLAS" as "S" on "S"."NOSUBKLASIFIKASI" = "K"."NOSUBKLASIFIKASI"'
-				+'	join "KLAS" as "KL" on "KL"."NOKLASIFIKASI" = "S"."NOKLASIFIKASI"'
+				+'	"DEPT" as "D" '
+				+'	join "JOB" as "J"'
+				+'  join "INVJUR" as "I"'
 			db.query(sql, function(err, result) {
 				if (err) {
 					res.status(500).send({error: err})
@@ -138,25 +129,13 @@ router.post('/', function(req, res, next) {
 							'Content-Type': 'application/json',
 						},
 						body: {
-							code: result[0].code,
-							name: result[0].name,
-							alias_name: result[0].alias_name,
-							is_cash: (result[0].is_cash==='T') ? true : false,
-							is_active: (result[0].is_active!=='T') ? true : false,
-							currency: {
-								code: result[0].currency_code,
-								name: result[0].currency_name,
-								symbol: result[0].currency_symbol,
+							department: {
+								code: result[0].code,
+								name: result[0].name,
 							},
-							subclassification: {
-								code: result[0].subclass_code,
-								name: result[0].subclass_name,
-								alias_name: result[0].subclass_alias_name,
-							},
-							classification: {
-								code: result[0].class_code,
-								name: result[0].class_name,
-								alias_name: result[0].class_alias_name,
+							project: {
+								code: result[0].project_code,
+								name: result[0].project_name,
 							},
 						},
 						json: true
