@@ -100,7 +100,7 @@ router.get('/sample_bodies', function(req, res, next) {
 router.get('/', function(req, res, next) {
 
 	// switch db with body request
-	dbOptions = Object.assign(dbOptions, req.body.origin)
+	dbOptions = Object.assign(dbOptions, {database: req.get('database')})
 
 	// connect to db
 	fb.attach(dbOptions, function(err, db) {
