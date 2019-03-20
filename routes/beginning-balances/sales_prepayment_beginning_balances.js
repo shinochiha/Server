@@ -40,76 +40,76 @@ router.get('/sample_bodies', function(req, res, next) {
 			number: "string",
 			description: "string",
 			customer: {
-					code: "string",
-					name: "string",
-					classification: {
-							name: "string"
-					}
+				code: "string",
+				name: "string",
+				classification: {
+						name: "string"
+				}
 			},
 			orders: [
-					{
-							date: "2019-03-01",
-							number: "string",
-							description: "string"
-					}
+				{
+					date: "2019-03-01",
+					number: "string",
+					description: "string"
+				}
 			],
 			employees: [
-					{
-							type: {
-									name: "string"
-							},
-							contact: {
-									code: "string",
-									name: "string",
-									classification: {
-											name: "string"
-									}
-							}
+				{
+					type: {
+							name: "string"
+					},
+					contact: {
+						code: "string",
+						name: "string",
+						classification: {
+								name: "string"
+						}
 					}
+				}
 			],
 			department: {
-					code: "string",
-					name: "string"
+				code: "string",
+				name: "string"
 			},
 			project: {
-					code: "string",
-					name: "string"
+				code: "string",
+				name: "string"
 			},
 			document: {
-					date: "2019-03-01",
-					number: "string"
+				date: "2019-03-01",
+				number: "string"
 			},
 			tax_form: {
-					date: "2019-03-01",
-					number: "string"
+				date: "2019-03-01",
+				number: "string"
 			},
 			other_fields: [
-					{
-							key: "string",
-							type: "string",
-							name: "string"
-					}
+				{
+					key: "string",
+					type: "string",
+					name: "string"
+				}
 			],
 			amount_type: "string",
 			account: {
-					code: 1,
-					name: "string",
-					alias_name: "string"
+				code: 1,
+				name: "string",
+				alias_name: "string"
 			},
 			currency: {
-					code: "string",
-					name: "string",
-					symbol: "string"
+				code: "string",
+				name: "string",
+				symbol: "string"
 			},
 			exchange_rate: 1,
 			amount_origin: 1,
 			amount: 1,
 			taxes: [
-					{
-							code: "string",
-							name: "string",
-							rate: 1
-					}
+				{
+					code: "string",
+					name: "string",
+					rate: 1
+				}
 			],
 			total_amount_origin: 1,
 			total_amount: 1,
@@ -126,7 +126,7 @@ router.get('/sample_bodies', function(req, res, next) {
 router.get('/', function(req, res, next) {
 
 	// switch db with body request
-	dbOptions = Object.assign(dbOptions, req.body.origin)
+	dbOptions = Object.assign(dbOptions, {database: req.get('database')})
 
 	// connect to db
 	fb.attach(dbOptions, function(err, db) {
