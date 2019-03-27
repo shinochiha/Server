@@ -128,7 +128,7 @@ router.post('/', function(req, res, next) {
 				} else {
 
 					let reqOptions = {
-						method: 'POST',
+					  method: 'POST',
 					  url: req.body.destination.url+'/api/v2/accounts',
 					  headers: {
 					  	slug: req.body.destination.slug,
